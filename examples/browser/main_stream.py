@@ -35,6 +35,7 @@ llm = ChatOpenAI(
     # api_key="sk-lrhdwxwgnkrmqviiuzoqifucbpdddevpnucrvfehabiaxxmj",
     http_client=Client(verify=False, proxy="http://localhost:8888"),
     http_async_client=AsyncClient(verify=False, proxy="http://localhost:8888"),
+    streaming=True  # 启用流式响应
 )
 
 async def main():   
@@ -45,7 +46,7 @@ async def main():
     )
     browser = Browser(config=config)                 
     agent = Agent(
-        task="打开网址元宝https://yuanbao.tencent.com/chat/naQivTmsDa ，打开网页后，不要有其他操作，直接找到输入框，输入问题：今天天气怎样? 等待15秒，得到回复，把回复输出给我结果",
+        task="打开网址https://www.zhihu.com/question/waiting，抓取前面2个问题，并且进入问题详情页面，获取问题和问题详情，最后整理成一个markdown表格输出给我",
         llm=llm,
         browser=browser,
         use_vision=False
